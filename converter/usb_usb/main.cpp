@@ -61,11 +61,13 @@ static void LUFA_setup(void)
 
 
 /* Default hooks definitions. */
+/*
 __attribute__((weak))
 void hook_early_init(void) {}
 
 __attribute__((weak))
 void hook_late_init(void) {}
+*/
 
 
 
@@ -77,6 +79,8 @@ int main(void)
 
     debug_enable = true;
     debug_keyboard = true;
+
+    hook_early_init();
 
     host_set_driver(&lufa_driver);
     keyboard_init();
@@ -96,9 +100,11 @@ int main(void)
     }
 */
 
+    hook_late_init();
+
     debug("init: done\n");
 
-    for (;;) {
+    while (1) {
         keyboard_task();
 
 #if !defined(INTERRUPT_CONTROL_ENDPOINT)
