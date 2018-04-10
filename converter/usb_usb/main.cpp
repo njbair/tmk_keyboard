@@ -10,6 +10,7 @@
 #include "debug.h"
 #include "keyboard.h"
 #include "led.h"
+#include "hook.h"
 
 
 /* LED ping configuration */
@@ -57,6 +58,14 @@ static void LUFA_setup(void)
     USB_Device_EnableSOFEvents();
     print_set_sendchar(sendchar);
 }
+
+
+/* Default hooks definitions. */
+__attribute__((weak))
+void hook_early_init(void) {}
+
+__attribute__((weak))
+void hook_late_init(void) {}
 
 
 
